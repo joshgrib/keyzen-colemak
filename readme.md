@@ -12,7 +12,7 @@ The website is hosted from the `master` branch of this repo via [Github pages](h
 
 - [x] Reorder character to put symbols before capitals
 - [x] Flash background red on errors and green on level up so you have feedback when the sound is off
-- [x] Scrolling character tape instead of "word"s
+- [x] Scrolling character tape instead of `word`s
 - [x] Remake with Vue
     - [x] Alphabet progression display
     - [x] Past, current, and future character display
@@ -23,7 +23,7 @@ The website is hosted from the `master` branch of this repo via [Github pages](h
 
 ### Planned
 
-- [ ] Add error counts for each character, maybe some charts
+- [/] Add error counts for each character, maybe some charts
 - [ ] Increase frequency of a letter if it has more errors than others
 
 ### Under consideration

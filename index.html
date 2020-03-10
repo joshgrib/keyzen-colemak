@@ -74,6 +74,14 @@
       <progress :value="state.streak" :max="config.streakToLevelUp"></progress>
       <br>
       <button @click="clearStorage">Restart</button>
+      <fieldset>
+        <legend>Character accuracy rates</legend>
+        <ul>
+          <li v-for="[key, value] of Object.entries(characterStats)">
+            <b>{{ key | charDisplay }}</b> - {{ value.total }} total, {{ (value.correct / value.total * 100).toFixed(0) }}% correct
+          </li>
+        </ul>
+      </fieldset>
     </section>
   </div>
   <script src="assets/vue-2.6.1.js"></script>

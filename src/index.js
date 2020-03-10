@@ -42,6 +42,21 @@ var app = new Vue({
     },
     history () {
       return this.state.fullHistory.slice(1).slice(-this.config.peripheralCharLength)
+    },
+    characterStats () {
+      let stats = {}
+      for(let { correct, pressed, value } of this.state.fullHistory) {
+        if (stats[value] === undefined) {
+          stats[value] = {
+            total: 1,
+            correct: correct ? 1 : 0
+          }
+        } else {
+          stats[value].total += 1
+          stats[value].correct += correct ? 1 : 0
+        }
+      }
+      return stats;
     }
   },
   created () {
