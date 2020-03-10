@@ -54,7 +54,7 @@ var app = new Vue({
     }
   },
   watch: {
-    history (newValue) {
+    fullHistory (newValue) {
       const newElement = newValue[newValue.length-1]
       if (newElement.correct) {
         correctSound.play()
