@@ -1,5 +1,8 @@
 const chars = 'ntesiroahdjglpufywqbkvmcxz'
 
+const correctSound = new Audio("assets/click.wav")
+const incorrectSound = new Audio("assets/clack.wav")
+
 var app = new Vue({
   el: '#app',
   data () {
@@ -27,7 +30,7 @@ var app = new Vue({
       return this.fullHistory.slice(1).slice(-this.peripheralCharLength)
     }
   },
-  mounted () {
+  created () {
     document.addEventListener('keyup', this.handleKeypress);
     this.currentChar = this.alphabet[0]
     this.futureChars = this.alphabet.slice(0, this.peripheralCharLength)
@@ -45,9 +48,18 @@ var app = new Vue({
         ...this.currentChar
       })
       this.currentChar = this.futureChars.shift()
-      this.futureChars.push({
-        value: this.alphabet[Math.floor(Math.random() * this.alphabet.length)]
-      })
+      const randomChar = this.alphabet[Math.floor(Math.random() * this.alphabet.length)]
+      this.futureChars.push(randomChar)
+    }
+  },
+  watch: {
+    history (newValue) {
+      const newElement = newValue[newValue.length-1]
+      if (newElement.correct) {
+        correctSound.play()
+      } else {
+        incorrectSound.play()
+      }
     }
   },
   filters: {

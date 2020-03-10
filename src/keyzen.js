@@ -40,12 +40,12 @@ function keyHandler(e) {
   data.keys_hit += key;
   if(key == data.word[data.word_index]) {
     data.in_a_row[key] += 1;
-    (new Audio("assets/click.wav")).play();
+    //(new Audio("assets/click.wav")).play();
   }
   else {
     data.in_a_row[data.word[data.word_index]] = 0;
     data.in_a_row[key] = 0;
-    (new Audio("assets/clack.wav")).play();
+    //(new Audio("assets/clack.wav")).play();
     data.word_errors[data.word_index] = true;
   }
   data.word_index += 1;
