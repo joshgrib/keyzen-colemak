@@ -20,10 +20,10 @@ The website is hosted from the `master` branch of this repo via [Github pages](h
     - [x] Level up and add more character to the alphabet
     - [x] Save state in `localStorage`
     - [x] Display full character set and allow skipping to levels
+- [x] Add error counts for each character, maybe some charts
 
 ### Planned
 
-- [/] Add error counts for each character, maybe some charts
 - [ ] Increase frequency of a letter if it has more errors than others
 
 ### Under consideration

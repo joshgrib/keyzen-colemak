@@ -75,12 +75,12 @@
       <br>
       <button @click="clearStorage">Restart</button>
       <fieldset>
-        <legend>Character accuracy rates</legend>
-        <ul>
-          <li v-for="char of highestErrorRateCharacters">
-            <b>{{ char.value | charDisplay }}</b> - {{ (char.correct / char.total * 100).toFixed(2) }}% correct
+        <legend>Top missed characters</legend>
+        <ol>
+          <li v-for="{value, correct, total} of highestErrorRateCharacters.slice(0, 5)">
+            <b>{{ value | charDisplay }}</b> - {{ ((total - correct) / total * 100).toFixed(2) }}% missed
           </li>
-        </ul>
+        </ol>
       </fieldset>
     </section>
   </div>
