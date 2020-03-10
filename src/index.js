@@ -67,9 +67,9 @@ var app = new Vue({
         this.levelUp()
       }
     },
-    flashRedBackground () {
+    flashBackground (color) {
       this.$el.style.opacity = 0.4
-      this.$el.style.backgroundColor = 'red'
+      this.$el.style.backgroundColor = color
       setTimeout(() => {
         this.$el.style.backgroundColor = 'transparent'
         this.$el.style.opacity = 1
@@ -77,6 +77,7 @@ var app = new Vue({
     },
     levelUp () {
       levelUpSound.play()
+      this.flashBackground('green')
       this.level += 1
     }
   },
@@ -87,7 +88,7 @@ var app = new Vue({
         correctSound.play()
       } else {
         incorrectSound.play()
-        this.flashRedBackground()
+        this.flashBackground('red')
       }
     }
   },
