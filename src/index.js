@@ -15,30 +15,37 @@ var app = new Vue({
         symbols: '\'\",.!?:;/@$%&#*()_~+-={}|^<>`[]\\',
         uppercase: chars.toUpperCase()
       },
-      currentChar: undefined,
-      fullHistory: [],
-      futureChars: [],
-      peripheralCharLength: 6,
-      level: 9,
-      correctStreak: 0,
-      streakToLevelUp: 20
+      config: {
+        peripheralCharLength: 6,
+        streakToLevelUp: 20
+      },
+      state: {
+        fullHistory: [],
+        currentChar: undefined,
+        futureChars: [],
+        level: 9,
+        streak: 0
+      }
     }
   },
   computed: {
+    charSetAsArray () {
+      return Object.values(this.charSets).join('').split('')
+    },
     alphabet () {
-      return Object.values(this.charSets).join('').split('').slice(0, this.level).map(value => {
+      return this.charSetAsArray.slice(0, this.state.level).map(value => {
         return { value }
       })
     },
     history () {
-      return this.fullHistory.slice(1).slice(-this.peripheralCharLength)
+      return this.state.fullHistory.slice(1).slice(-this.config.peripheralCharLength)
     }
   },
   created () {
     document.addEventListener('keyup', this.handleKeypress);
-    this.currentChar = this.alphabet[0]
-    for(let i=0; i<this.peripheralCharLength; i++) {
-      this.futureChars.push(this.getRandomChar())
+    this.state.currentChar = this.alphabet[0]
+    for(let i=0; i<this.config.peripheralCharLength; i++) {
+      this.state.futureChars.push(this.getRandomChar())
     }
   },
   methods: {
@@ -51,13 +58,13 @@ var app = new Vue({
       if (!this.alphabet.some(c => c.value == key)) {
         return
       }
-      const correct = key === this.currentChar.value
-      this.fullHistory.push({correct, pressed: key, ...this.currentChar})
-      this.correctStreak = correct ? this.correctStreak + 1 : 0
-      this.currentChar = this.futureChars.shift()
-      this.futureChars.push(this.getRandomChar())
-      if (this.correctStreak === this.streakToLevelUp) {
-        this.correctStreak = 0
+      const correct = key === this.state.currentChar.value
+      this.state.fullHistory.push({correct, pressed: key, ...this.state.currentChar})
+      this.state.streak = correct ? this.state.streak + 1 : 0
+      this.state.currentChar = this.state.futureChars.shift()
+      this.state.futureChars.push(this.getRandomChar())
+      if (this.state.streak === this.config.streakToLevelUp) {
+        this.state.streak = 0
         this.levelUp()
       }
     },
@@ -72,17 +79,20 @@ var app = new Vue({
     levelUp () {
       levelUpSound.play()
       this.flashBackground('green')
-      this.level += 1
+      this.state.level += 1
     }
   },
   watch: {
-    fullHistory (newValue) {
-      const newElement = newValue[newValue.length-1]
-      if (newElement.correct) {
-        correctSound.play()
-      } else {
-        incorrectSound.play()
-        this.flashBackground('red')
+    'state.fullHistory': {
+      deep: true,
+      handler (newValue) {
+        const newElement = newValue[newValue.length-1]
+        if (newElement.correct) {
+          correctSound.play()
+        } else {
+          incorrectSound.play()
+          this.flashBackground('red')
+        }
       }
     }
   },

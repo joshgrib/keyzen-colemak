@@ -87,16 +87,16 @@
             }"
           >{{ char.value | charDisplay }}<span class="char-correction" v-if="!char.correct">{{ char.pressed }}</span></span>
         </span>
-        <span id="current-char">{{ currentChar.value | charDisplay }}</span>
-        <span v-for="(char, idx) in futureChars">
+        <span id="current-char">{{ state.currentChar.value | charDisplay }}</span>
+        <span v-for="(char, idx) in state.futureChars">
           <span :style="{
-              opacity: 1 - ((idx) / futureChars.length)
+              opacity: 1 - ((idx) / state.futureChars.length)
             }"
           >{{ char.value | charDisplay }}</span>
         </span>
       </p>
       <section id="stats">
-        <progress :value="correctStreak" :max="streakToLevelUp"></progress>
+        <progress :value="state.streak" :max="config.streakToLevelUp"></progress>
       </section>
     </div>
     <script src="assets/vue-2.6.1.js"></script>
