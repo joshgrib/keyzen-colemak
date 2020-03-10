@@ -83,10 +83,19 @@
       </p>
       <p id="current-words">
         <span v-for="(char, idx) in history">
-          <span :class="char.correct ? 'char-correct' : 'char-error'">{{ char.value | charDisplay }}</span>
+          <span :style="{
+              color: char.correct ? 'green' : 'red',
+              opacity: ((idx + 1) / history.length)
+            }"
+          >{{ char.value | charDisplay }}</span>
         </span>
         <span id="current-char">{{ currentChar.value | charDisplay }}</span>
-        <span v-for="(char, idx) in futureChars">{{ char.value | charDisplay }}</span>
+        <span v-for="(char, idx) in futureChars">
+          <span :style="{
+              opacity: 1 - ((idx) / futureChars.length)
+            }"
+          >{{ char.value | charDisplay }}</span>
+        </span>
       </p>
     </div>      
     <script src="src/index.js"></script>
@@ -108,14 +117,11 @@
         color: grey;
       }
       #current-char {
-        font-size: 24px;
+        font-size: 120px;
         color: orange;
       }
-      .char-correct {
-        color: green;
-      }
-      .char-error {
-        color: red;
+      #current-words {
+        font-size: 100px;
       }
     </style>
 </body>
