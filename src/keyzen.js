@@ -65,7 +65,7 @@ function keyHandler(e) {
 
 function level_up() {
   if (data.level + 1 <= data.chars.length - 1) {
-    (new Audio('assets/ding.wav')).play();
+    //(new Audio('assets/ding.wav')).play();
   }
   l = Math.min(data.level + 1, data.chars.length);
   set_level(l);

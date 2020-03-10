@@ -1,7 +1,8 @@
 const chars = 'ntesiroahdjglpufywqbkvmcxz'
 
-const correctSound = new Audio("assets/click.wav")
-const incorrectSound = new Audio("assets/clack.wav")
+const correctSound = new Audio('assets/click.wav')
+const incorrectSound = new Audio('assets/clack.wav')
+const levelUpSound = new Audio('assets/ding.wav')
 
 var app = new Vue({
   el: '#app',
@@ -17,12 +18,15 @@ var app = new Vue({
       currentChar: undefined,
       fullHistory: [],
       futureChars: [],
-      peripheralCharLength: 6
+      peripheralCharLength: 6,
+      level: 9,
+      correctStreak: 0,
+      streakToLevelUp: 20
     }
   },
   computed: {
     alphabet () {
-      return Object.values(this.charSets).join('').split('').map(value => {
+      return Object.values(this.charSets).join('').split('').slice(0, this.level).map(value => {
         return { value }
       })
     },
@@ -33,9 +37,15 @@ var app = new Vue({
   created () {
     document.addEventListener('keyup', this.handleKeypress);
     this.currentChar = this.alphabet[0]
-    this.futureChars = this.alphabet.slice(0, this.peripheralCharLength)
+    //FIXME: this isn't getting enough things
+    for(let i=0; i<this.peripheralCharLength; i++) {
+      this.futureChars.push(this.getRandomChar())
+    }
   },
   methods: {
+    getRandomChar () {
+      return this.alphabet[Math.floor(Math.random() * this.alphabet.length)]
+    },
     handleKeypress ({ key }) {
       // ignore any key that's not part of the alphabet
       // this is mainly to handle modifier keys
@@ -43,14 +53,31 @@ var app = new Vue({
         return
       }
       //TODO: play sound and flash background based on if the key is correct
-      this.fullHistory.push({
-        correct: key === this.currentChar.value,
-        pressed: key,
-        ...this.currentChar
-      })
+      if (key === this.currentChar.value) {
+        this.fullHistory.push({correct: true, pressed: key, ...this.currentChar})
+        this.correctStreak += 1
+      } else {
+        this.fullHistory.push({correct: false, pressed: key, ...this.currentChar})
+        this.correctStreak = 0
+      }
       this.currentChar = this.futureChars.shift()
-      const randomChar = this.alphabet[Math.floor(Math.random() * this.alphabet.length)]
-      this.futureChars.push(randomChar)
+      this.futureChars.push(this.getRandomChar())
+      if (this.correctStreak === this.streakToLevelUp) {
+        this.correctStreak = 0
+        this.levelUp()
+      }
+    },
+    flashRedBackground () {
+      this.$el.style.opacity = 0.4
+      this.$el.style.backgroundColor = 'red'
+      setTimeout(() => {
+        this.$el.style.backgroundColor = 'transparent'
+        this.$el.style.opacity = 1
+      }, 100)
+    },
+    levelUp () {
+      levelUpSound.play()
+      this.level += 1
     }
   },
   watch: {
@@ -60,10 +87,7 @@ var app = new Vue({
         correctSound.play()
       } else {
         incorrectSound.play()
-        this.$el.style.backgroundColor = 'red'
-        setTimeout(() => {
-          this.$el.style.backgroundColor = 'transparent'
-        }, 100)
+        this.flashRedBackground()
       }
     }
   },

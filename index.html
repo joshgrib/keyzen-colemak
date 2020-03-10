@@ -95,6 +95,9 @@
           >{{ char.value | charDisplay }}</span>
         </span>
       </p>
+      <section id="stats">
+        <progress :value="correctStreak" :max="streakToLevelUp"></progress>
+      </section>
     </div>
     <script src="assets/vue-2.6.1.js"></script>
     <script src="src/index.js"></script>
@@ -109,6 +112,8 @@
         font-family: 'Ubuntu Mono', sans-serif;
         font-size: 16px;
         width:95%;
+      }
+      #app {
         text-align: center;
       }
       #alphabet {
@@ -127,6 +132,9 @@
       .char-correction {
         font-size: 30px;
         color: grey;
+      }
+      #stats progress{
+        width: 50%;
       }
     </style>
 </body>
