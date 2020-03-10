@@ -12,6 +12,7 @@ The website is hosted from the `master` branch of this repo via [Github pages](h
 
 - [x] Reorder character to put symbols before capitals
 - [x] Flash background red on errors so you have feedback when the sound is off
+- [x] Scrolling character tape instead of "word"s
 
 ### Planned
 
