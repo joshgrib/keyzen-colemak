@@ -113,12 +113,12 @@
     <div id="app">
       <section id="alphabet">
         <p>
-          <span v-for="(char, idx) in alphabet">{{ char | charDisplay }}</span>
+          <span v-for="(char, idx) in alphabet">{{ char.value | charDisplay }}</span>
         </p>
       </section>
       <section id="current-words">
         <p>
-          <span v-for="(char, idx) in currentChars">{{ char | charDisplay }}</span>
+          <span v-for="(char, idx) in currentChars">{{ char.value | charDisplay }}</span>
         </p>
       </section>
     </div>      

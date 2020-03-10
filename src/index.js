@@ -1,12 +1,15 @@
+const charSet = ' ntesiroahdjglpufywqbkvmcxz1234567890\'\",.!?:;/@$%&#*()_~+-={}|^<>`[]\\ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
 var app = new Vue({
   el: '#app',
-  data () {
-    return {
-      message: 'Hello!',
-      alphabet: ' ntesiroahdjglpufywqbkvmcxz1234567890\'\",.!?:;/@$%&#*()_~+-={}|^<>`[]\\ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    }
-  },
   computed: {
+    alphabet () {
+      return charSet.split('').map(value => {
+        return {
+          value
+        }
+      })
+    },
     currentChars () {
       return this.alphabet.slice(0, 8)
     }
