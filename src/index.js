@@ -37,7 +37,6 @@ var app = new Vue({
   created () {
     document.addEventListener('keyup', this.handleKeypress);
     this.currentChar = this.alphabet[0]
-    //FIXME: this isn't getting enough things
     for(let i=0; i<this.peripheralCharLength; i++) {
       this.futureChars.push(this.getRandomChar())
     }
