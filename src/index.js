@@ -34,18 +34,20 @@ var app = new Vue({
   },
   methods: {
     handleKeypress ({ key }) {
-      console.log({
-        a: this.alphabet,
-        key,
-        includes: this.alphabet.includes(key)
-      })
-      if (this.alphabet.some(c => c.value == key)) {
-        this.fullHistory.push({ value: key })
-        this.currentChar = this.futureChars.shift()
-        this.futureChars.push({
-          value: this.alphabet[Math.floor(Math.random() * this.alphabet.length)]
-        })
+      // ignore any key that's not part of the alphabet
+      // this is mainly to handle modifier keys
+      if (!this.alphabet.some(c => c.value == key)) {
+        return
       }
+      //TODO: play sound and flash background based on if the key is correct
+      this.fullHistory.push({
+        correct: key === this.currentChar.value,
+        ...this.currentChar
+      })
+      this.currentChar = this.futureChars.shift()
+      this.futureChars.push({
+        value: this.alphabet[Math.floor(Math.random() * this.alphabet.length)]
+      })
     }
   },
   filters: {

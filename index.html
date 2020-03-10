@@ -82,8 +82,10 @@
         <span v-for="(char, idx) in alphabet">{{ char.value | charDisplay }}</span>
       </p>
       <p id="current-words">
-        <span v-for="(char, idx) in history">{{ char.value | charDisplay }}</span>
-        <span id="curren-char">{{ currentChar.value | charDisplay }}</span>
+        <span v-for="(char, idx) in history">
+          <span :class="char.correct ? 'char-correct' : 'char-error'">{{ char.value | charDisplay }}</span>
+        </span>
+        <span id="current-char">{{ currentChar.value | charDisplay }}</span>
         <span v-for="(char, idx) in futureChars">{{ char.value | charDisplay }}</span>
       </p>
     </div>      
@@ -105,9 +107,15 @@
         font-weight: bold;
         color: grey;
       }
-      #curren-char {
-        font-size: 20px;
+      #current-char {
+        font-size: 24px;
         color: orange;
+      }
+      .char-correct {
+        color: green;
+      }
+      .char-error {
+        color: red;
       }
     </style>
 </body>
