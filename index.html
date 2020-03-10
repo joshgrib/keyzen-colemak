@@ -41,6 +41,13 @@
     #stats button {
       margin: 10px;
     }
+    #top-errors header {
+      text-decoration: underline;
+    }
+    #top-errors p {
+      padding: 0;
+      margin: 0;
+    }
   </style>
 </head>
 <body>
@@ -74,14 +81,15 @@
       <progress :value="state.streak" :max="config.streakToLevelUp"></progress>
       <br>
       <button @click="clearStorage">Restart</button>
-      <fieldset>
-        <legend>Top missed characters</legend>
-        <ol>
-          <li v-for="{value, correct, total} of highestErrorRateCharacters.slice(0, 5)">
-            <b>{{ value | charDisplay }}</b> - {{ ((total - correct) / total * 100).toFixed(2) }}% missed
-          </li>
-        </ol>
-      </fieldset>
+      <p>Overall accuracy: {{ overallAccuracy | percentDisplay }}</p>
+      <section id="top-errors">
+        <header>
+          <p>Top missed characters:</p>
+        </header>
+        <p v-for="{value, correct, total} of highestErrorRateCharacters.slice(0, 5)">
+          <b>{{ value | charDisplay }}</b> - {{ ((total - correct) / total) | percentDisplay }} missed
+        </p>
+      </section>
     </section>
   </div>
   <script src="assets/vue-2.6.1.js"></script>

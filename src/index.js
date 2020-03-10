@@ -64,7 +64,12 @@ var app = new Vue({
         const aRate = a.correct / a.total
         const bRate = b.correct / b.total
         return aRate - bRate
-      })
+      }).filter(c => c.total > c.correct)
+    },
+    overallAccuracy () {
+      const total = this.state.fullHistory
+      const correct = this.state.fullHistory.filter(h => h.correct === true)
+      return correct.length / total.length
     }
   },
   created () {
@@ -176,6 +181,10 @@ var app = new Vue({
       }
       const renameMap = {' ': '⎵'}
       return renameMap[char] || char
+    },
+    percentDisplay (percent) {
+      if (isNaN(percent)) return '-'
+      return `${(percent * 100).toFixed(2)}%`
     }
   }
 })
