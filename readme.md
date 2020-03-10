@@ -11,7 +11,7 @@ The website is hosted from the `master` branch of this repo via [Github pages](h
 ### Completed
 
 - [x] Reorder character to put symbols before capitals
-- [x] Flash background red on errors so you have feedback when the sound is off
+- [x] Flash background red on errors and green on level up so you have feedback when the sound is off
 - [x] Scrolling character tape instead of "word"s
 
 ### Planned
