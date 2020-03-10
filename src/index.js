@@ -48,6 +48,7 @@ var app = new Vue({
       for(let { correct, pressed, value } of this.state.fullHistory) {
         if (stats[value] === undefined) {
           stats[value] = {
+            value,
             total: 1,
             correct: correct ? 1 : 0
           }
@@ -57,6 +58,13 @@ var app = new Vue({
         }
       }
       return stats;
+    },
+    highestErrorRateCharacters () {
+      return Object.values(this.characterStats).sort((a, b) => {
+        const aRate = a.correct / a.total
+        const bRate = b.correct / b.total
+        return aRate - bRate
+      })
     }
   },
   created () {

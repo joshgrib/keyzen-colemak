@@ -77,8 +77,8 @@
       <fieldset>
         <legend>Character accuracy rates</legend>
         <ul>
-          <li v-for="[key, value] of Object.entries(characterStats)">
-            <b>{{ key | charDisplay }}</b> - {{ value.total }} total, {{ (value.correct / value.total * 100).toFixed(0) }}% correct
+          <li v-for="char of highestErrorRateCharacters">
+            <b>{{ char.value | charDisplay }}</b> - {{ (char.correct / char.total * 100).toFixed(2) }}% correct
           </li>
         </ul>
       </fieldset>
