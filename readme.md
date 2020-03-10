@@ -21,10 +21,11 @@ The website is hosted from the `master` branch of this repo via [Github pages](h
     - [x] Save state in `localStorage`
     - [x] Display full character set and allow skipping to levels
 - [x] Add error counts for each character, maybe some charts
+- [x] Increase frequency of a letter if it has more errors than others
 
 ### Planned
 
-- [ ] Increase frequency of a letter if it has more errors than others
+- [ ] Tweak layout
 
 ### Under consideration
 

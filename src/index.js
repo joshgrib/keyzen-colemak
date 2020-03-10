@@ -20,7 +20,7 @@ var app = new Vue({
       },
       config: {
         peripheralCharLength: 6,
-        streakToLevelUp: 20
+        streakToLevelUp: 16
       },
       state: {
         fullHistory: [],
@@ -87,16 +87,38 @@ var app = new Vue({
         this.state.futureChars.push(this.getRandomChar())
       }
     },
+    getRandomArrayElement (arr) {
+      return arr[Math.floor(Math.random() * arr.length)]
+    },
     getRandomChar () {
-      return this.alphabet[Math.floor(Math.random() * this.alphabet.length)]
+      const randomVal = Math.random()
+      let char = undefined
+      if (randomVal <= 0.2) {
+        const currentChar = this.alphabet[this.state.level - 1]
+        if (currentChar !== undefined) {
+          return { value: currentChar.value }
+        }
+      }
+      const missed = this.state.fullHistory.filter(char => char.correct === false)
+      if (randomVal <= 0.5 && char !== undefined && missed.length > 0) {
+        const randomMissed = this.getRandomArrayElement(missed)
+        if (randomMissed !== undefined) {
+          return { value: randomMissed.value }
+        }
+      }
+      const randomChar = this.getRandomArrayElement(this.alphabet)
+      return { value: randomChar.value }
     },
     handleKeypress ({ key }) {
       // ignore any key that's not part of the alphabet
       // this is mainly to handle modifier keys
-      if (!this.alphabet.some(c => c.value == key)) {
+      if (!this.charSetAsArray.some(c => c.value == key)) {
         return
       }
       const correct = key === this.state.currentChar.value
+      if (!correct) {
+        console.log({ key, currentChar: this.state.currentChar })
+      }
       this.state.fullHistory.push({correct, pressed: key, ...this.state.currentChar})
       this.state.streak = correct ? this.state.streak + 1 : 0
       this.state.currentChar = this.state.futureChars.shift()
