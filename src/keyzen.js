@@ -40,12 +40,12 @@ function keyHandler(e) {
     data.keys_hit += key;
     if(key == data.word[data.word_index]) {
         data.in_a_row[key] += 1;
-        (new Audio("click.wav")).play();
+        (new Audio("assets/click.wav")).play();
     }
     else {
         data.in_a_row[data.word[data.word_index]] = 0;
         data.in_a_row[key] = 0;
-        (new Audio("clack.wav")).play();
+        (new Audio("assets/clack.wav")).play();
         data.word_errors[data.word_index] = true;
     }
     data.word_index += 1;
@@ -65,7 +65,7 @@ function keyHandler(e) {
 
 function level_up() {
     if (data.level + 1 <= data.chars.length - 1) {
-        (new Audio('ding.wav')).play();
+        (new Audio('assets/ding.wav')).play();
     }
     l = Math.min(data.level + 1, data.chars.length);
     set_level(l);
