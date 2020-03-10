@@ -1,6 +1,6 @@
 # Modified `keyzen-colemak`
 
-A fork I created to create a customized version.
+A fork I created to create a customized version, then I ended up fully rewriting it with Vue to make it easier to add new features
 
 **[Use it here](https://joshgrib.github.io/keyzen-colemak/)**
 
@@ -13,17 +13,18 @@ The website is hosted from the `master` branch of this repo via [Github pages](h
 - [x] Reorder character to put symbols before capitals
 - [x] Flash background red on errors and green on level up so you have feedback when the sound is off
 - [x] Scrolling character tape instead of "word"s
-
-### Planned
-
-- [/] Remake with Vue
+- [x] Remake with Vue
     - [x] Alphabet progression display
     - [x] Past, current, and future character display
     - [x] Sound and light for feedback
     - [x] Level up and add more character to the alphabet
     - [x] Save state in `localStorage`
-    - [ ] Display full character set and allow skipping to levels
+    - [x] Display full character set and allow skipping to levels
+
+### Planned
+
 - [ ] Add error counts for each character, maybe some charts
+- [ ] Increase frequency of a letter if it has more errors than others
 
 ### Under consideration
 

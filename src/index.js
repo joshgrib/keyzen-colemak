@@ -33,12 +33,12 @@ var app = new Vue({
   },
   computed: {
     charSetAsArray () {
-      return Object.values(this.charSets).join('').split('')
-    },
-    alphabet () {
-      return this.charSetAsArray.slice(0, this.state.level).map(value => {
+      return Object.values(this.charSets).join('').split('').map(value => {
         return { value }
       })
+    },
+    alphabet () {
+      return this.charSetAsArray.slice(0, this.state.level)
     },
     history () {
       return this.state.fullHistory.slice(1).slice(-this.config.peripheralCharLength)
@@ -49,9 +49,7 @@ var app = new Vue({
     const persistedState = localStorage.getItem(LS_KEY)
     if (persistedState === null) {
       this.state.currentChar = this.alphabet[0]
-      for(let i=0; i<this.config.peripheralCharLength; i++) {
-        this.state.futureChars.push(this.getRandomChar())
-      }
+      this.refreshFutureChars()
     } else {
       for(let [key, value] of Object.entries(JSON.parse(persistedState))) {
         this.state[key] = value
@@ -60,6 +58,12 @@ var app = new Vue({
     
   },
   methods: {
+    refreshFutureChars () {
+      this.state.futureChars.length = 0
+      for(let i=0; i<this.config.peripheralCharLength; i++) {
+        this.state.futureChars.push(this.getRandomChar())
+      }
+    },
     getRandomChar () {
       return this.alphabet[Math.floor(Math.random() * this.alphabet.length)]
     },
@@ -91,6 +95,10 @@ var app = new Vue({
       levelUpSound.play()
       this.flashBackground('green')
       this.state.level += 1
+    },
+    setLevel (newLevel) {
+      this.state.level = newLevel
+      this.refreshFutureChars()
     },
     clearStorage () {
       localStorage.removeItem(LS_KEY)
