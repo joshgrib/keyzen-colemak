@@ -1,0 +1,14 @@
+{
+  "name": "keyzen-colemak",
+  "version": "1.0.0",
+  "main": "index.html",
+  "repository": "git@github.com:joshgrib/keyzen-colemak.git",
+  "author": "Josh Gribbon",
+  "license": "MIT",
+  "scripts": {
+    "dev": "http-server ."
+  },
+  "dependencies": {
+    "http-server": "^0.12.1"
+  }
+}
