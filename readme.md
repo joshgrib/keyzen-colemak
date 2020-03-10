@@ -26,6 +26,8 @@ The website is hosted from the `master` branch of this repo via [Github pages](h
 
 ### Planned
 
+- [ ] Add a config value for maximum repeated characters (when the alphabet has more than 1)
+
 ### Under consideration
 
 - [ ] Add a way to store and choose from different "alphabets" to practice with
