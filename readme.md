@@ -21,7 +21,8 @@ The website is hosted from the `master` branch of this repo via [Github pages](h
     - [x] Past, current, and future character display
     - [x] Sound and light for feedback
     - [x] Level up and add more character to the alphabet
-    - [/] Save state in `localStorage`
+    - [x] Save state in `localStorage`
+    - [ ] Display full character set and allow skipping to levels
 - [ ] Add error counts for each character, maybe some charts
 
 ### Under consideration

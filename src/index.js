@@ -4,6 +4,9 @@ const correctSound = new Audio('assets/click.wav')
 const incorrectSound = new Audio('assets/clack.wav')
 const levelUpSound = new Audio('assets/ding.wav')
 
+// key for localStorage
+const LS_KEY = 'keyzen-colemak-joshgrib'
+
 var app = new Vue({
   el: '#app',
   data () {
@@ -43,10 +46,18 @@ var app = new Vue({
   },
   created () {
     document.addEventListener('keyup', this.handleKeypress);
-    this.state.currentChar = this.alphabet[0]
-    for(let i=0; i<this.config.peripheralCharLength; i++) {
-      this.state.futureChars.push(this.getRandomChar())
+    const persistedState = localStorage.getItem(LS_KEY)
+    if (persistedState === null) {
+      this.state.currentChar = this.alphabet[0]
+      for(let i=0; i<this.config.peripheralCharLength; i++) {
+        this.state.futureChars.push(this.getRandomChar())
+      }
+    } else {
+      for(let [key, value] of Object.entries(JSON.parse(persistedState))) {
+        this.state[key] = value
+      }
     }
+    
   },
   methods: {
     getRandomChar () {
@@ -80,11 +91,14 @@ var app = new Vue({
       levelUpSound.play()
       this.flashBackground('green')
       this.state.level += 1
+    },
+    clearStorage () {
+      localStorage.removeItem(LS_KEY)
+      location.reload()
     }
   },
   watch: {
     'state.fullHistory': {
-      deep: true,
       handler (newValue) {
         const newElement = newValue[newValue.length-1]
         if (newElement.correct) {
@@ -93,6 +107,12 @@ var app = new Vue({
           incorrectSound.play()
           this.flashBackground('red')
         }
+      }
+    },
+    state: {
+      deep: true,
+      handler (newValue) {
+        localStorage.setItem(LS_KEY, JSON.stringify(newValue))
       }
     }
   },

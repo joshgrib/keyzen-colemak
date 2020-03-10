@@ -85,7 +85,7 @@
               color: char.correct ? 'green' : 'red',
               opacity: ((idx + 1) / history.length)
             }"
-          >{{ char.value | charDisplay }}<span class="char-correction" v-if="!char.correct">{{ char.pressed }}</span></span>
+          >{{ char.value | charDisplay }}<span class="char-correction" v-if="!char.correct">{{ char.pressed | charDisplay }}</span></span>
         </span>
         <span id="current-char">{{ state.currentChar.value | charDisplay }}</span>
         <span v-for="(char, idx) in state.futureChars">
@@ -97,6 +97,8 @@
       </p>
       <section id="stats">
         <progress :value="state.streak" :max="config.streakToLevelUp"></progress>
+        <br>
+        <button @click="clearStorage">Reset</button>
       </section>
     </div>
     <script src="assets/vue-2.6.1.js"></script>
