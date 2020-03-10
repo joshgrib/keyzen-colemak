@@ -60,6 +60,10 @@ var app = new Vue({
         correctSound.play()
       } else {
         incorrectSound.play()
+        this.$el.style.backgroundColor = 'red'
+        setTimeout(() => {
+          this.$el.style.backgroundColor = 'transparent'
+        }, 100)
       }
     }
   },
