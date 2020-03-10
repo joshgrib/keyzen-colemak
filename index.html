@@ -87,7 +87,7 @@
               color: char.correct ? 'green' : 'red',
               opacity: ((idx + 1) / history.length)
             }"
-          >{{ char.value | charDisplay }}</span>
+          >{{ char.value | charDisplay }}<span class="char-correction" v-if="!char.correct">{{ char.pressed }}</span></span>
         </span>
         <span id="current-char">{{ currentChar.value | charDisplay }}</span>
         <span v-for="(char, idx) in futureChars">
@@ -122,6 +122,12 @@
       }
       #current-words {
         font-size: 100px;
+        text-shadow: 0px 2px 3px black;
+        color: grey;
+      }
+      .char-correction {
+        font-size: 60px;
+        color: grey;
       }
     </style>
 </body>

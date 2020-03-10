@@ -45,6 +45,7 @@ var app = new Vue({
       //TODO: play sound and flash background based on if the key is correct
       this.fullHistory.push({
         correct: key === this.currentChar.value,
+        pressed: key,
         ...this.currentChar
       })
       this.currentChar = this.futureChars.shift()
