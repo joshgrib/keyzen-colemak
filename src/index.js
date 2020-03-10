@@ -51,14 +51,9 @@ var app = new Vue({
       if (!this.alphabet.some(c => c.value == key)) {
         return
       }
-      //TODO: play sound and flash background based on if the key is correct
-      if (key === this.currentChar.value) {
-        this.fullHistory.push({correct: true, pressed: key, ...this.currentChar})
-        this.correctStreak += 1
-      } else {
-        this.fullHistory.push({correct: false, pressed: key, ...this.currentChar})
-        this.correctStreak = 0
-      }
+      const correct = key === this.currentChar.value
+      this.fullHistory.push({correct, pressed: key, ...this.currentChar})
+      this.correctStreak = correct ? this.correctStreak + 1 : 0
       this.currentChar = this.futureChars.shift()
       this.futureChars.push(this.getRandomChar())
       if (this.correctStreak === this.streakToLevelUp) {
